@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} detailed_view {% endblock %}
+
+{% block content %}  
+
+
+<div class="sub-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 col-xs-12">
+          <ul class="left-info">
+            <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
+            <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="right-icons">
+            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</div>
+  
+  <header class="">
+    <nav class="navbar navbar-expand-lg" style="background-color: #bd986b;">
+      <div class="container">
+        <a class="navbar-brand m-0" href="index.html"><h2 >Apple Cart<em><h2 class="text-center">welcome {{ data.name }}</h2></i></em></h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="">Products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+            
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="about.html">About Us</a>
+                <a class="dropdown-item" href="blog.html">Contact Us </a>
+                <a class="dropdown-item" href="testimonials.html">Wish List</a>
+                <a class="dropdown-item" href="terms.html">Sign Up</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              {% if 'username' in request.session %}
+              <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+              {% else %}
+              <a class="nav-link" href="{% url 'login' %}">Log in</a>
+              {% endif %}
+          </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Page Content --->
+
+
+
+
+<!-- image section  -->
+
+<div class="services">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <div id="" class="text-center">
+            <div class="zoom">
+            <div class="zoomArea">
+              <img class="text-center" id="NZoomImg" data-NZoomscale="2" src="{{ data.image1.url }}" alt="Product Image">
+            </div>
+            <!-- <img src="{{ data.image1.url }}" width="90%" alt="" class="img-fluid wc-image"> -->
+          </div>
+          </div>
+          <br>
+  
+          <div class="row">
+            <div class="col-sm-4 col-6">
+              <div>
+                <img src="{{ data.image2.url }}" width="80%" alt="" class="img-fluid">
+              </div>
+              <br>
+            </div>
+            <div class="col-sm-4 col-6">
+              <div>
+                <img src="{{ data.image3.url }}" width="80%" alt="" class="img-fluid">
+              </div>
+              <br>
+            </div>
+            <div class="col-sm-4 col-6">
+              <div>
+                <img src="{{ data.image4.url }}" width="80%" alt="" class="img-fluid">
+              </div>
+              <br>
+            </div>
+          </div>
+  
+          <br>
+        </div>
+  
+<!--  details section  -->
+
+        <div class="col-md-5 mt-5" >
+          <div class="sidebar-item recent-posts">
+            <div class="sidebar-heading">
+              <h3>Info</h3>
+            </div>
+  
+            <div class="content mt-2">
+              <p>{{ data.Product_dis }}</p>
+              <h5 class="content mt-5">{{ data.Product_name }} {{ data.ram }} RAM  {{ data.storage }} ROM </h5>
+              <h2 class="text-danger m-4">₹{{ data.Product_price }}.</h2>
+              
+            </div>
+          </div>
+  
+          <br>
+          <br>
+        
+          <!-- <h4>Add to Cart</h4>
+  
+          <br>
+  
+          
+  
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div class="form-group">
+                  <label for="">Quantity</label>
+                  <input type="text" value="1" required="" class="form-control">
+                </div>
+              </div> -->
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <a href="{% url 'add_cart' data.id  %}" class="filled-button">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+          </form>
+  
+          <br>
+        </div>
+      </div>
+  
+    </div>
+
+    <br>
+    <br>
+  </div>
+</div>
+
+<!-- Footer Starts Here -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 footer-item">
+        <h4>Mobile Store</h4>
+        <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+        <ul class="social-icons">
+          <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-item">
+        <h4>Useful Links</h4>
+        <ul class="menu-list">
+          <li><a href="#">Vivamus ut tellus mi</a></li>
+          <li><a href="#">Nulla nec cursus elit</a></li>
+          <li><a href="#">Vulputate sed nec</a></li>
+          <li><a href="#">Cursus augue hasellus</a></li>
+          <li><a href="#">Lacinia ac sapien</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-item">
+        <h4>Additional Pages</h4>
+        <ul class="menu-list">
+          <li><a href="#">Products</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Terms</a></li>
+        </ul>
+      </div>
+      <div class="col-md-3 footer-item last-item">
+        <h4>Contact Us</h4>
+        <div class="contact-form">
+          <form id="contact footer-contact" action="" method="post">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <fieldset>
+                  <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                </fieldset>
+              </div>
+              <div class="col-lg-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <p>
+            Copyright © 2020 Company Name
+            - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- zooming css -->
+
+<style>
+
+.zoomArea {
+  width: 28rem;
+  height: 27rem;
+  overflow: hidden;
+}
+
+.zoomArea > image {
+  width: 100%;
+  height: 100%;
+}
+
+</style>
+
+<!-- image zooming script -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'assets/js/Nzoom.min.js' %}"></script>
+
+
+</script>
+
+<!-- jquery cdn -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Additional Scripts -->
+<script src="{% static 'assets/js/custom.js' %}"></script>
+<script src="{% static 'assets/js/owl.js' %}"></script>
+<script src="{% static 'assets/js/slick.js' %}"></script>
+<script src="{% static 'assets/js/accordions.js' %}"></script>
+
+{% comment %} <!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Additional Scripts -->
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/owl.js"></script>
+<script src="assets/js/slick.js"></script>
+<script src="assets/js/accordions.js"></script> {% endcomment %}
+
+<script language = "text/Javascript"> 
+  cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+  function clearField(t){                   //declaring the array outside of the
+  if(! cleared[t.id]){                      // function makes it static and global
+      cleared[t.id] = 1;  // you could use true and false, but that's more typing
+      t.value='';         // with more chance of typos
+      t.style.color='#fff';
+      }
+  }
+</script>
+
+<!-- image zooming code -->
+
+
+
+
+
+
+{% endblock %}

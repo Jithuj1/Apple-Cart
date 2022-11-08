@@ -1,0 +1,99 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} add_new_product {% endblock %}
+
+{% block content %}
+
+
+
+
+<div class="col py-3" >
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-8 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5" style="background-color: rgb(16, 1, 1);; color: #FF6384;">
+              <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title text-center mb-5 fw-light fs-5">Add Product</h5>
+                <form method="post" name="myForm" enctype="multipart/form-data">
+                     {% csrf_token %}
+                    <div class=" lg-12">
+                    <div class="form-floating mb-3">
+                      <input type="text" name="p_id" class="form-control" id="floatingInput" value="" >
+                      <label for="floatingInput">Product ID</label>
+                      <span id="id_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="p_name" class="form-control" id="floatingInput1" value="" >
+                        <label for="floatingInput1">Product Name</label>
+                        <span id="name_err" style="color:red"></span>
+                    </div>
+                  </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="p_dis" class="form-control" id="floatingInput2" value="" >
+                        <label for="floatingInput2">Description</label>
+                        <span id="description_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="price" class="form-control" id="floatingInput3" value="">
+                        <label for="floatingInput3">Price</label>
+                        <span id="price_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="ram" class="form-control" id="floatingInput4" value="">
+                        <label for="floatingInput4">Ram</label>
+                        <span id="ram_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="storage" class="form-control" id="floatingInput5" value="">
+                        <label for="floatingInput5">Storage</label>
+                        <span id="storage_err" style="color:red"></span>
+                    </div>
+                    <label for="cars">category:</label>
+                    <div class="form-floating mb-3">
+                      <select name="category" class="form-control" id="">
+                        <option value=""></option>
+                        {% for i in data %}
+                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% endfor %}
+                      </select> 
+                  </div>
+
+                    
+
+                    <div class="form-floating mb-3">
+                        <input type="file" name="file1" value="{{ data1.image1 }}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="file" name="file2" value="{{ data1.image2 }}">
+                    </div>
+                    <div class="form-floating mb-3" >
+                        <input type="file" name="file3" value="{{ data1.image3 }}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="file" name="file4" value="{{ data1.image4 }}">
+                    </div>
+                  <div class="d-grid">
+                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+
+
+<script defer src="https://cdn.crop.guide/loader/l.js?c=JQZSFV"></script>
+
+
+<style>
+  body{
+        background-color: #191C24;
+  }
+</style>
+{% endblock  %}

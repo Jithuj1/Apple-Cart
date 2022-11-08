@@ -1,0 +1,175 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Harry Fitness</title>
+  </head>
+  <link
+    href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+
+  <body>
+    <section class="vh-100 bg-secondary" style="height: 100vh;">
+      <div class="container py-2 h-100">
+        <div class="row justify-content-center align-items-center h-100">
+          <div class="col-12 col-lg-9 col-xl-7">
+            <div
+              class="card shadow-2-strong card-registration"
+              style="border-radius: 15px"
+            >
+              <div class="card-body p-4 p-md-5">
+                <h3 class="mb-3 pb-1 pb-md-0 mb-md-4">Registration Form</h3>
+                {% for m in messages %}
+                <div class=" container-fluid my-5 p-2 text-danger" style=" background-color: bisque;">
+                <div {% if message.tags %} class="alert alert-{{ message.tags}}" {% endif %} role="alert">
+                  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>
+                  <h5 class="text-danger"> Alert:  {{ m }}</h5>
+                </div>
+                </div>
+                {% endfor %}
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          name="name"
+                          class="form-control form-control-lg"
+                          placeholder="Name"
+                        />
+                        <label class="form-label" for="firstName"></label>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-2">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          name="phonenumber"
+                          class="form-control form-control-lg"
+                          placeholder="Phone number"
+                        />
+                        <label class="form-label" for="lastName"></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12 mb-2 d-flex align-items-center">
+                      <div class="form-outline datepicker w-100">
+                        <input
+                          type="text"
+                          class="form-control form-control-lg"
+                          name="email"
+                          placeholder="Email"
+                        />
+                        <label for="birthdayDate" class="form-label"></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-6 mb-2">
+                      <h6 class="mb-2 pb-1">Gender:</h6>
+
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="femaleGender"
+                          value="option1"
+                          checked
+                        />
+                        <label class="form-check-label" for="femaleGender"
+                          >Female</label
+                        >
+                      </div>
+
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="maleGender"
+                          value="option2"
+                        />
+                        <label class="form-check-label" for="maleGender"
+                          >Male</label
+                        >
+                      </div>
+
+                      <div class="form-check form-check-inline">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="inlineRadioOptions"
+                          id="otherGender"
+                          value="option3"
+                        />
+                        <label class="form-check-label" for="otherGender"
+                          >Other</label
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-2 pb-2">
+                      <div class="form-outline">
+                        <input
+                          type="text"
+                          name="username"
+                          class="form-control form-control-lg"
+                          placeholder="Username"
+                        />
+                        <label class="form-label" for="emailAddress"></label>
+                      </div>
+                    </div>
+                  </div>
+
+                 
+                  <div class="row">
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <input
+                          type="Password"
+                          name="password"
+                          class="form-control form-control-lg"
+                          placeholder="Password"
+                        />
+                        <label class="form-label" for="phoneNumber"></label>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4 pb-2">
+                      <div class="form-outline">
+                        <input
+                          type="Password"
+                          name="cpassword"
+                          class="form-control form-control-lg"
+                          placeholder="Confirm Password"
+                        />
+                        <label class="form-label" for="emailAddress"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center">
+                    <input type="Submit" class="btn btn-info px-5" href=""></input>
+                  </div>
+                  
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

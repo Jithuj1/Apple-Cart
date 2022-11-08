@@ -1,0 +1,116 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} userdetails {% endblock %}
+
+{% block content %}
+
+<div class="container d-block">
+ 
+      <div class=" container text-center h2 m-5 " style="color: #FF6384;"> RECENT ORDERS</div>
+      <div class=" container text-center h2 m-5 "> 
+        <form action="{% url 'order_list' %}" method="post">
+          {% csrf_token %}
+            <input type="text"  name="search" class="  px-5 " placeholder=" "/>
+            
+            <input type="submit"  class="btn px-5"  style="background-color:#104764; color: #FF6384; border: none" value="Search" href=""></input>
+      </div>
+</form>
+
+
+<table class="table ml-5" style="color:#FF6384 ;">
+    <thead>
+      <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">User Name</th>
+        <th scope="col">Product Name </th>
+        <th scope="col">Product price </th>
+        <th scope="col">Order Date</th>
+        <th scope="col">Order Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for i in data %}
+      <tr>
+        <th scope="row">{{i.order.order_number}}</th>
+                    <td>{{i.user.name}}</td>
+                    <td>{{i.Product.Product_name}}</td>
+                    <td>{{i.Product.Product_price}}</td>
+                    <td>{{i.updated_at}}</td>
+                    <td>
+                      {% if i.status == "Shipped" %}
+                      <div class="text-info">{{i.status}}</div>
+                      {% elif i.status == "Out of Delivery" %}
+                      <div class="text-danger">{{i.status}}</div>
+                      {% elif i.status == "Delivered" %}
+                      <div class="" style="color:rgb(159, 108, 247) ">{{i.status}}</div>
+                      {% elif i.status == "Order Placed" %}
+                      <div style="color:rgb(189, 248, 162);">{{i.status}}</div>
+                      {% elif i.status == "Return Requested" %}
+                      <div style="color:rgb(52, 79, 232);">{{i.status}}</div>
+                      {% else  %}
+                      <div style="color:red;">{{i.status}}</div>
+                      {% endif %}
+                      </td>
+                    <td>
+                      <a href="update_order/{{i.id}}" style="background-color:#104764; color: #FF6384" class="btn ">Details</a>
+                    </td>
+                  </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+<div></div>
+
+
+<!-- pagination -->
+
+<nav class="d-flex justify-content-center " >
+  {% if data.has_other_pages %}
+  <ul class="pagination pagination-lg justify-content-center">
+    {% if data.has_previous %}
+    <li class="page-item ">
+      <a class="page-link" style="background-color: #104764; color:#FF6384;" href="?page={{product.previous_page_number}}" aria-label="Previous">
+        Previous
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" style="background-color: #104764;  " href="#" aria-label="Previous">Previous </a>
+    </li>
+    {% endif %}
+
+    {% for i in data.paginator.page_range %}
+      {% if data.number == i %}
+        <li class="page-item" ><a class="page-link" style="background-color: #104764; color:#FF6384;" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" style="background-color: #104764; color:#FF6384;" href="?page={{i}}">{{i}}</a></li>
+      {% endif %}
+      {% endfor %}
+
+
+      {% if data.has_next %}
+      <li class="page-item ">
+        <a class="page-link" style="background-color: #104764; color:#FF6384;" href="?page={{product.next_page_number}}" aria-label="Previous">
+          Next
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" style="background-color: #104764;" href="#" aria-label="Previous"> Next </a>
+
+      </li>
+      {% endif %}
+  </ul>
+  {% endif %}
+</nav>
+</div>
+
+
+<style>
+  body{
+        background-color: #191C24;
+  }
+</style>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} adminhome {% endblock %}
+
+{% block content %}
+
+
+  <div class="container">
+    <div class="col py-2">
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-8 mx-auto">
+              <div class="card border-0 shadow rounded-3 my-5">
+                <div class="card-body p-4 p-sm-5">
+                  <h5 class="card-title text-center mb-5 fw-light fs-5">UPDATE CATEGORY</h5>
+                  <form method="post" name="myForm" enctype="multipart/form-data">
+                       {% csrf_token %}
+                      <div class=" lg-12">
+                      <div class="form-floating mb-4">
+                        <input type="text" readonly name="c_id" class="form-control" id="floatingInput" value="{{ data1.category_id}}" placeholder="Category ID">
+                        <span id="id_err" style="color:red"></span>
+                      </div>
+                      <div class="form-floating mb-2">
+                          <input type="text" name="c_name" class="form-control" id="floatingInput1" value="{{ data1.category_name}}" placeholder="Category Name">
+                          <label for="floatingInput1"></label>
+                          <span id="name_err" style="color:red"></span>
+                      </div>
+                    </div>
+                      <div class="form-floating mb-2">
+                          <input type="text" name="c_dis" class="form-control" id="floatingInput2" value="{{ data1.category_dis }}" placeholder="Category Details" >
+                          <label for="floatingInput2"></label>
+                          <span id="description_err" style="color:red"></span>
+                      </div>
+                      <div class="form-floating mb-2">
+                        <input type="file" name="c_image" class="form-control" id="floatingInput2" value="" >
+                        <label for="floatingInput2"></label>
+                        <span id="description_err" style="color:red"></span>
+                    </div>
+                    <div class="d-grid">
+                      <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Submit</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+  </div>
+  </div>
+  
+    </div>
+  
+
+
+  
+
+
+
+
+
+
+
+{% endblock %}

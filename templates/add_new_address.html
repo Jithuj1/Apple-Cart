@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} home_page {% endblock %}
+
+{% block content %}
+
+
+<!-- ***** Preloader Start ***** -->
+<div id="preloader">
+    <div class="jumper">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>  
+<!-- ***** Preloader End ***** -->
+
+<!-- Header -->
+<div class="sub-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8 col-xs-12">
+        <ul class="left-info">
+          <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
+          <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <ul class="right-icons">
+          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<header class="">
+  <nav class="navbar navbar-expand-lg" style="background-color: #bd986b;">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><h2>Apple Cart<em><h2 class="text-center">welcome {{ data.name }}</h2></i></em></h2></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'product' %}">Products</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="">Cart</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+          
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="about.html">About Us</a>
+                <a class="dropdown-item" href="blog.html">Contact Us </a>
+                <a class="dropdown-item" href="testimonials.html">Wish List</a>
+                <a class="dropdown-item" href="terms.html">Sign Up</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            {% if 'username' in request.session %}
+            <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+            {% else %}
+            <a class="nav-link" href="{% url 'login' %}">Log in</a>
+            {% endif %}
+        </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<div class="callback-form contact-us">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="contact-form">
+            <form action="#" method="post" id="contact">
+               {% csrf_token %}
+
+               <div class="text-white-50 mb-3"> 
+                    {% for m in messages %}
+                    <h5 class="text-danger">{{ m }}</h5>
+                    {% endfor %}
+                  </div>
+
+               <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <select name="title" class="form-control" data-msg-required="This field is required.">
+                                   <option value="">-- Choose Title --</option>
+                                   <option value="dr">Dr.</option>
+                                   <option value="miss">Miss</option>
+                                   <option value="mr">Mr.</option>
+                                   <option value="mrs">Mrs.</option>
+                                   <option value="ms">Ms.</option>
+                                   <option value="other">Other</option>
+                                   <option value="prof">Prof.</option>
+                                   <option value="rev">Rev.</option>
+                              </select>
+                         </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input type="text" name="name" class="form-control" placeholder="Name:">
+                         </div>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="email" type="text" class="form-control" placeholder="Email:">
+                         </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="phone" type="text" class="form-control" placeholder="Phone:">
+                         </div>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="address" type="text" class="form-control" placeholder="Address :">
+                         </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="pin" type="text" class="form-control" placeholder="PIN:">
+                         </div>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="city" type="text" class="form-control" placeholder="City:">
+                         </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="district" type="text" class="form-control" placeholder="District:">
+                         </div>
+                    </div>
+               </div>
+               <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <input name="state" type="text" class="form-control" placeholder="State:">
+                         </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                         <div class="form-group">
+                              <select name="user" class="form-control">
+                                   <option  value=""> Select Username</option>
+                                        {% for i in users_list %}
+                                        <option value="{{i.id}}">{{i.username}}</option>
+                                         {% endfor %}
+                              </select>
+                         </div>
+                    </div>
+               </div>
+
+               
+
+               <div class="row">
+                 <div class="col-lg-12">
+                    <button type="submit" id="form-submit" class="filled-button">Finish</button>
+                </div>
+               </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock  %}

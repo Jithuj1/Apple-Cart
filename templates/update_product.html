@@ -1,0 +1,76 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} adminhome {% endblock %}
+
+{% block content %}
+
+<div class="col py-3">
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-9 col-md-7 col-lg-8 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+              <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title text-center mb-5 fw-light fs-5">Add Product</h5>
+                <form method="post" name="myForm" enctype="multipart/form-data">
+                     {% csrf_token %}
+                    <div class=" lg-12">
+                    <div class="form-floating mb-3">
+                      <input type="text" readonly name="p_id" class="form-control" id="floatingInput" value="{{data.product_ID}}" >
+                      <label for="floatingInput">Product ID</label>
+                      <span id="id_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="p_name" class="form-control" id="floatingInput1" value="{{data.Product_name}}" >
+                        <label for="floatingInput1">Product Name</label>
+                        <span id="name_err" style="color:red"></span>
+                    </div>
+                  </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="p_dis" class="form-control" id="floatingInput2" value="{{data.Product_dis}}" >
+                        <label for="floatingInput2">Description</label>
+                        <span id="description_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="price" class="form-control" id="floatingInput3" value="{{data.Product_price}}">
+                        <label for="floatingInput3">Price</label>
+                        <span id="price_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="ram" class="form-control" id="floatingInput4" value="{{data.ram}}">
+                        <label for="floatingInput4">Ram</label>
+                        <span id="ram_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" name="storage" class="form-control" id="floatingInput5" value="{{data.storage}}">
+                        <label for="floatingInput5">Storage</label>
+                        <span id="storage_err" style="color:red"></span>
+                    </div>
+                    
+                    <div class="form-floating mb-3">
+                        <input type="file" name="file1" value="{{ data.image1 }}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="file" name="file2" value="{{ data.image2 }}">
+                    </div>
+                    <div class="form-floating mb-3" >
+                        <input type="file" name="file3" value="{{ data.image3 }}">
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="file" name="file4" value="{{ data.image4 }}">
+                    </div>
+                  <div class="d-grid">
+                    <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+
+{% endblock  %}

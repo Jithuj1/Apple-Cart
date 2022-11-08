@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} product_page {% endblock %}
+
+{% block content %}
+
+
+
+    <div class="sub-header" style="background-color: #8E8741;">
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <ul class="left-info">
+              <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
+              <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="right-icons">
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <header class="">
+      <nav class="navbar navbar-expand-lg" style="background-color: #bd986b;">
+        <div class="container">
+          <a class="navbar-brand m-0" href="index.html"><h2 style="color: black;" >Apple Cart<em><h2 style="color: black;" class="text-center">welcome{% if 'uname' in request.session %}
+            {{ user.name  }}
+            {% endif %} </h2></i></em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a style="color: black;" class="nav-link" href="{% url 'home' %}">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item active">
+                <a style="color: black;" class="nav-link" href="">Products</a>
+              </li>
+              <li class="nav-item">
+                <a style="color: black;" class="nav-link" href="{% url 'cart' %}">Cart</a>
+              </li>
+              <li class="nav-item dropdown">
+                {% if 'uname' in request.session %}
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                {% endif %}
+              </li>
+              <li class="nav-item">
+                {% if 'uname' in request.session %}
+                <a style="color: black;" class="nav-link" href="{% url 'logout' %}">Log out</a>
+                {% else %}
+                <a style="color: black;" class="nav-link" href="{% url 'login' %}">Log in</a>
+                {% endif %}
+            </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="mt-5 pt-5 header-text">
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-4 ">
+            <h1 class="mt-5 mb-3 ">STORE</h1>
+            <span>Store. The best way to buy the products you love.</span>
+          </div>
+          <div class=" mt-5   col-md-4 ">
+            <form action="" method="post">
+              {% csrf_token %}
+            <input type="text" name="search" class="form-control form-control-lg  px-5 " placeholder=" "/>
+            <input type="submit" class="btn btn-info px-5 m-2" value="Search"></input>
+          </form>
+          </div>
+          <div class=" mt-5   col-md-4 ">
+            <form action="{% url 'product_searach' %}" method="post">
+              {% csrf_token %}
+                    <div class="form-select mb-3">
+                      <select class="p-2 px-5" name="category" class="form-control" id="">
+                        <option  value="1"> Select Category</option>
+                        {% for i in categories %}
+                        <option value="{{i.id}}" > <a href="">{{i.category_name}}</a></option>
+                        {% endfor %}
+                      </select> 
+                      <button type="submit" class="btn btn-info px-5 m-2" value="Apply">Apply</button >
+                    </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="services">
+      <div class="container">
+        <div class="row">
+          {% for i in product_details %}
+
+          <div class="col-md-4 bg-">
+            <div class="service-item">
+              <div class="card m-2" style="width: 20rem;">
+                {% if i.discount_percentage != 0 %}
+                <div class="text-center p-1 px-3 position-absolute" style="background-color: rgb(231, 76, 76);"> {{ i.discount_percentage }}% off</div>
+                {% endif %}
+                <a href="detailed_view/{{i.id}}"><img class="card-has-bg-img"  src="{{i.image1.url}}" alt="Card image cap"></a>
+                <div class="card-body">
+                  <h5 class="card-title text-center">{{i.Product_name}}</h5>
+                  <div class="d-flex justify-content-around">
+                    {% if i.discount_price != i.Product_price %}
+                    <h5 class="card-title text-center  text-danger" style="text-decoration: line-through; color: red;"> ₹{{i.Product_price}}</h5>
+                    <h5 class="card-title text-center text-danger"> ₹{{i.discount_price}}</h5>
+                    {% else %}
+                    <h5 class="card-title text-center text-danger"> ₹{{i.Product_price}}</h5>
+                    {% endif %}
+                  </div>
+                  <div>
+                    
+                  <A href="{% url 'wishlist' i.id %}" class="btn " style="background-color: rgb(202, 83, 83); color:white">Add to wishlist</A>
+                  <a href="{% url 'add_cart' i.id  %}" class="btn btn-secondary">Add to cart</a></div>
+                </div>
+              </div>
+            </div>
+
+            <br>
+          </div>
+          {% endfor %}
+
+        </div>
+
+        <br>
+        <br>
+
+        <nav>
+          {% if product_details.has_other_pages %}
+          <ul class="pagination pagination-lg justify-content-center">
+            {% if product_details.has_previous %}
+            <li class="page-item ">
+              <a class="page-link" href="?page={{product.previous_page_number}}" aria-label="Previous">
+                Previous
+              </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+              <a class="page-link" href="#" aria-label="Previous">Previous </a>
+            </li>
+            {% endif %}
+
+            {% for i in product_details.paginator.page_range %}
+              {% if product_details.number == i %}
+                <li class="page-item"><a class="page-link" href="#">{{i}}</a></li>
+              {% else %}
+              <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+              {% endif %}
+              {% endfor %}
+
+
+              {% if product_details.has_next %}
+              <li class="page-item ">
+                <a class="page-link" href="?page={{product.next_page_number}}" aria-label="Previous">
+                  Previous
+                </a>
+              </li>
+              {% else %}
+              <li class="page-item disabled">
+                <a class="page-link" href="#" aria-label="Previous"> Next </a>
+
+              </li>
+              {% endif %}
+          </ul>
+          {% endif %}
+        </nav>
+
+        <br>
+        <br>
+        <br>
+        <br>
+      </div>
+    </div>
+
+    <!-- Footer Starts Here -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3 footer-item">
+            <h4>Mobile Store</h4>
+            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+            <ul class="social-icons">
+              <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Useful Links</h4>
+            <ul class="menu-list">
+              <li><a href="#">Vivamus ut tellus mi</a></li>
+              <li><a href="#">Nulla nec cursus elit</a></li>
+              <li><a href="#">Vulputate sed nec</a></li>
+              <li><a href="#">Cursus augue hasellus</a></li>
+              <li><a href="#">Lacinia ac sapien</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Additional Pages</h4>
+            <ul class="menu-list">
+              <li><a href="#">Products</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Terms</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item last-item">
+            <h4>Contact Us</h4>
+            <div class="contact-form">
+              <form id="contact footer-contact" action="" method="post">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+                Copyright © 2020 Company Name
+                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Additional Scripts -->
+    <script src="{% static 'assets/js/custom.js' %}"></script>
+    <script src="{% static 'assets/js/owl.js' %}"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
+    <script src="{% static 'assets/js/accordions.js' %}"></script>
+
+    {% comment %} <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Additional Scripts -->
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/owl.js"></script>
+    <script src="assets/js/slick.js"></script>
+    <script src="assets/js/accordions.js"></script> {% endcomment %}
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+{% endblock  %}
+

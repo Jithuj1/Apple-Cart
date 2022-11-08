@@ -1,0 +1,141 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} userdetails {% endblock %}
+
+{% block content %}
+
+<div class="container d-block">
+ 
+    <div class=" container text-center h2 m-5 " style="color: #FF6384;"> ORDER DETAILS</div>
+    <div class=" container text-center h2 m-5 "></div>
+
+    <div class="text-white d-flex justify-content-around ">
+        <div> 
+            <div class="card" style="width: 35rem; height: 23rem; background-color: rgb(30, 28, 28); color: #FF6384;">
+                <h4 class="mx-5 mt-5 mb-3">Address</h4>
+                <div class=" mx-3">
+                    <div class="p-2">
+                        <div class="p-2">Name : &nbsp;{{ order.order.address.name}}</div>
+                        <div class="p-2">Address : &nbsp; {{ order.order.address.full_address}}</div>
+                        <div class="p-2">PIN : &nbsp; {{ order.order.address.pin}}</div>
+                        <div class="p-2">City : &nbsp;{{ order.order.address.city}}</div>
+                        <div class="p-2">State : &nbsp;{{ order.order.address.state}}</div>
+                        <div class="p-2">Order Date :&nbsp;{{ order.updated_at}}</div>
+                    </div>
+                </div>
+              </div>
+        </div>
+        <div>
+            <div class="card" style="width: 30rem; height: 23rem; background-color: rgb(30, 28, 28); color: #FF6384;">
+                <div>
+                    <div class="mx-5 mt-5 mb-3 h4">Update Status</div>
+                    <form action="{% url 'submit_order' order.id %}" method="POST">
+                        {% csrf_token %}
+                    <select name="status" class="form-select mt-3 mx-5 px-5 py-2" style="background-color:rgb(30, 28, 28); color: #FF6384;" aria-label="Default select example">
+                        <option selected>Order Confirmed</option>
+                        <option value="Shipped">Shipped</option>
+                        <option value="Out of Delivery">Out of Delivery</option>
+                        <option value="Delivered">Delivered</option>
+                        <option value="Delivered">Cancel</option>
+                      </select> <br>
+                      <div>
+                        <button type="submit" href="" class="btn m-5 px-3" style="background-color: #104764; color: #FF6384;">Update</button>
+                      </div></form>
+                </div>
+              </div>
+        </div>
+    </div>    
+
+    <table class="table ml-5" style="color:#FF6384 ; background-color:  rgb(30, 28, 28);;">
+        <thead>
+          <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Product</th>
+            <th scope="col">Price </th>
+            <th scope="col">Quantity </th>
+            <th scope="col"> Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th class="" scope="row"><img style="height: 5rem;" src="{{order.Product.image1.url}}" alt=""></th>
+                        <td>{{order.Product.Product_name}}</td>
+                        <td>{{order.Product.Product_price}}</td>
+                        <td>{{order.quantity}}</td>
+                        <td>
+                          {% if order.payment.status == "Shipped" %}
+                          <div class="text-info">{{order.payment.status}}</div>
+                          {% elif order.payment.status == "Out of Delivery" %}
+                          <div class="text-danger">{{order.payment.status}}</div>
+                          {% elif order.payment.status == "Delivered" %}
+                          <div class="text-success">{{order.payment.status}}</div>
+                          {% else %}
+                          <div class="text-warning">{{order.payment.status}}</div>
+                          {% endif %}
+                          </td>
+                        <td>
+                          <a href="update_order/{{i.id}}" style="background-color:#104764; color: #FF6384" class="btn ">Cancel</a>
+                        </td>
+                      </tr>
+        </tbody>
+      </table>
+
+
+
+    </div>
+
+
+
+<!-- pagination -->
+
+<nav class="d-flex justify-content-center " >
+  {% if data.has_other_pages %}
+  <ul class="pagination pagination-lg justify-content-center">
+    {% if data.has_previous %}
+    <li class="page-item ">
+      <a class="page-link" style="background-color: #104764; color:#FF6384;" href="?page={{product.previous_page_number}}" aria-label="Previous">
+        Previous
+      </a>
+    </li>
+    {% else %}
+    <li class="page-item disabled">
+      <a class="page-link" style="background-color: #104764;  " href="#" aria-label="Previous">Previous </a>
+    </li>
+    {% endif %}
+
+    {% for i in data.paginator.page_range %}
+      {% if data.number == i %}
+        <li class="page-item" ><a class="page-link" style="background-color: #104764; color:#FF6384;" href="#">{{i}}</a></li>
+      {% else %}
+      <li class="page-item"><a class="page-link" style="background-color: #104764; color:#FF6384;" href="?page={{i}}">{{i}}</a></li>
+      {% endif %}
+      {% endfor %}
+
+
+      {% if data.has_next %}
+      <li class="page-item ">
+        <a class="page-link" style="background-color: #104764; color:#FF6384;" href="?page={{product.next_page_number}}" aria-label="Previous">
+          Next
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" style="background-color: #104764;" href="#" aria-label="Previous"> Next </a>
+
+      </li>
+      {% endif %}
+  </ul>
+  {% endif %}
+</nav>
+</div>
+
+
+<style>
+  body{
+        background-color: #191C24;
+  }
+</style>
+
+{% endblock %}

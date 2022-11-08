@@ -1,0 +1,72 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} adminhome {% endblock %}
+
+{% block content %}
+
+<div class="container" >
+  <div class="col py-3">
+    <div class="container" >
+        <div class="row" >
+          <div class="col-sm-9 col-md-7 col-lg-8 mx-auto" >
+            <div class="card border-0 shadow rounded-3 my-5" style="background-color: #2d3241 ;">
+              <div class="card-body p-4 p-sm-5">
+                <h5 class="card-title text-center mb-5 fw-light fs-5" style="color: #FF6384 ;">ADD NEW COUPON</h5>
+                <form method="post" name="myForm" enctype="multipart/form-data">
+                     {% csrf_token %}
+                    <div class=" lg-12">
+                        <div class="form-floating ">
+                            <div class="ml-3" style="color: #FF6384 ;">Coupon Code</div>
+                          </div>
+                    <div class="form-floating ">
+                      <input type="text" name="coupon_name" style="background-color: #2d3241; border-color: #304585; color: #FF6384 ;" class="form-control" id="floatingInput" value="{{ data1.product_id}}" placeholder="">
+                      <span id="id_err" style="color:red"></span>
+                    </div>
+                    <div class="form-floating mt-3">
+                        <div class='d-flex'>
+                            <div  class="form-control " style="background-color: #2d3241; border: none; color: #FF6384 ;" placeholder="Start Date" id="date1" type='' max="" name='date1' required>Start Date</div>
+                            <div  class="form-control ml-5" style="background-color: #2d3241; border: none; color: #FF6384 ;" placeholder="End Date" type='' id="date2" name='date2' min="" required> End Date</div>
+                          </div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <div class='d-flex'>
+                            <input  class="form-control " style="background-color: #2d3241; border-color: #304585; color: #82686e ;" placeholder="Start Date" id="date1" type='date' max="" name='date1' required>
+                            <input  class="form-control ml-5" style="background-color: #2d3241; border-color: #304585; color: #82686e ;" type='date' id="date2" name='date2' min="" required>
+                          </div>
+                    </div>
+                    <div class="form-floating mt-4">
+                        <div class="ml-2" style="color: #FF6384 ;">Discount Percentage</div>
+                      </div>
+                  </div>
+                  <div class="form-floating ">
+                    <input type="text" name="dis_percentage" style="background-color: #2d3241; border-color: #304585; color: #FF6384 ;" class="form-control" id="floatingInput" value="{{ data1.product_id}}" placeholder="">
+                    <span id="id_err" style="color:red"></span>
+                  </div>
+                  <div class="d-grid d-flex justify-content-center mt-5">
+                    <button class="btn btn-primary btn-login text-uppercase fw-bold px-5 py-2" style="background-color:#104764; color: #FF6384; border: none;" type="submit">Submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+</div>
+</div>
+
+  </div>
+
+
+
+
+
+
+  <style>
+    body{
+          background-color: #191C24;
+    }
+  </style>
+{% endblock %}

@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} home_page {% endblock %}
+
+{% block content %}
+
+    <!-- ***** Preloader Start ***** -->
+     
+    <!-- ***** Preloader End ***** -->
+
+    <!-- Header -->
+    <div class="sub-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-xs-12">
+            <ul class="left-info">
+              <li><a href="#"><i class="fa fa-envelope"></i>contact@company.com</a></li>
+              <li><a href="#"><i class="fa fa-phone"></i>123-456-7890</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="right-icons">
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <header class="">
+      <nav class="navbar navbar-expand-lg" style="background-color: #bd986b;">
+        <div class="container">
+          <a class="navbar-brand" href="index.html"><h2 style="color: black;" >Apple Cart<em><h2 style="color: black;"  class="text-center">welcome{% if 'uname' in request.session %}
+            {{ user.name  }}
+            {% endif %} </h2></i></em></h2></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}">Home
+                  <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'product' %}">Products</a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link" href="">Cart</a>
+              </li>
+              <li class="nav-item dropdown">
+                {% if 'uname' in request.session %}
+                <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'contact' %}">Contact Us</a>
+                {% endif %}
+              </li>
+              <li class="nav-item">
+                {% if 'uname' in request.session %}
+                <a class="nav-link" href="{% url 'logout' %}">Log out</a>
+                {% else %}
+                <a class="nav-link" href="{% url 'login' %}">Log in</a>
+                {% endif %}
+            </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page Content -->
+    <div class="mt-5 pt-5 header-text">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Shopping Cart</h1>
+            <span>Your cart is ready to checkout</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container ">
+      
+        <section class="h-100 h-custom" >
+          <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                  <div class="card-body p-0">
+                    <div class="row g-0">
+                      <div class="col-lg-8">
+                        <div class="p-5">
+                          <div class="d-flex justify-content-between align-items-center mb-5">
+                            <h1 class="fw-bold mb-0 text-black">Bucket</h1>
+                            <h6 class="mb-0 text-muted">items</h6>
+                          </div>
+
+                          {% if not cart_items %}
+                          <div class="">
+                            <h1 class="d-flex justify-content-center"> Your Cart is Empty</h1>
+                            <hr class="my-4 mt-3">
+
+                          </div>
+                          {% else %}
+
+                          {% for cart_item in cart_items %}
+                        
+                          <hr class="my-4">
+        
+                          <div class="row mb-4 d-flex justify-content-between align-items-center">
+                            <div class="col-md-2 col-lg-2 col-xl-2">
+                              <img
+                                src="{{ cart_item.product.image1.url}}"
+                                class="img-fluid rounded-3" alt="Cotton T-shirt">
+                            </div>
+                            <div class="col-md-5 col-lg-5 col-xl-4 ">
+                              <h5 class="text-muted">{{ cart_item.product.Product_name}}</h5>
+                              <h6 class="text-black mb-0">{{ cart_item.product.ram}} RAM And {{ cart_item.product.storage}} ROM</h6>
+                            </div>
+                            <div class="col-md-3 col-lg-3 col-xl-2 d-flex product_data">
+                              <!--hidden data-->
+                              <input type="hidden" class="hid_price" value="{{cart_item.product.Product_price}}">
+                              <input type="hidden" class="cart" value="{{cart_item.id}}">
+                              {% csrf_token %}
+                              <button class="btn bg-white changeQuantity decrement-btn p-2">-</button>
+                            
+                              <input style="width:3rem;" type="text" name="qtn" class="btn bg-white quantity-imput p-2" value="{{ cart_item.quantity }} "></input>
+                            
+                              <button  class="btn bg-white p-2 changeQuantity increment-btn">+</button>
+                              <input readOnly type="text" class="total_price  product_amount mx-3" style="border:none" value="{{ cart_item.sub_total }}"> 
+                            </div>
+                            <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                             
+                            </div>
+                            <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                              <a href="{% url 'remove_cart_item' cart_item.product.id %}" class="btn bg-dark px-2">X</a>
+                            </div>
+                          </div>
+                          {% endfor %}
+                          {% endif %}
+                          
+
+                          
+                          
+                        </div>
+                      </div>
+
+
+                      
+
+                      <div class="card bg-light m-5  text-dark rounded-3">
+                        <div class="card-body subtotal">
+                          <h5 class="px-3" > Payment Details</h5>
+                          <hr class="my-4">
+      
+                          <div class="d-flex  justify-content-between">
+                            <p class="mb-2 text-dark  font-weight-bold ">Sub Total</p>
+                            <p class="mb-2 text-dark font-weight-bold subtotal1">₹ {{ total }}</p>
+                          </div>
+      
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2 text-dark font-weight-bold ">Tax Amount</p>
+                            <p class="mb-2 text-dark font-weight-bold subtotal2">{{ tax}}</p>
+                          </div>
+                          
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2 text-dark font-weight-bold">Shipping</p>
+                            <p class="mb-2 text-dark font-weight-bold ">Free</p>
+                          </div>
+      
+                          <div class="d-flex justify-content-between mb-4">
+                            <p class="mb-2 text-dark font-weight-bold">Grand Total</p>
+                            <p class="mb-2 text-dark font-weight-bold subtotal3">₹ {{ grand_total }}</p>
+                          </div>
+                          {% if grand_total == 0 %}
+                          <a class="nav-link" href="{% url 'logout' %}"></a>
+                          {% else %}
+                          <a href="{% url 'checkout' %}" type="button" class="btn btn-block btn-lg text-light" style="background-color: rgb(36, 123, 36);" >
+                            Checkout
+                          </a>
+
+                          {% endif %}
+                          
+                          <hr class=" mt-3">
+        
+                        
+                          <a href="{% url 'product' %}" class=" d-flex justify-content-center btn btn-outline-secondary">Back to shop</a>
+      
+      
+                          
+                        </div>
+                      </div>
+      
+                    </div>
+      
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+        
+
+                      
+                      
+    
+    </div>
+
+   
+
+  
+
+    <!-- Footer Starts Here -->
+    <footer>
+      <div class="container" >
+        <div class="row">
+          <div class="col-md-3 footer-item">
+            <h4>Mobile Store</h4>
+            <p>Vivamus tellus mi. Nulla ne cursus elit,vulputate. Sed ne cursus augue hasellus lacinia sapien vitae.</p>
+            <ul class="social-icons">
+              <li><a rel="nofollow" href="#" target="_blank"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Useful Links</h4>
+            <ul class="menu-list">
+              <li><a href="#">Vivamus ut tellus mi</a></li>
+              <li><a href="#">Nulla nec cursus elit</a></li>
+              <li><a href="#">Vulputate sed nec</a></li>
+              <li><a href="#">Cursus augue hasellus</a></li>
+              <li><a href="#">Lacinia ac sapien</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item">
+            <h4>Additional Pages</h4>
+            <ul class="menu-list">
+              <li><a href="#">Products</a></li>
+              <li><a href="#">About Us</a></li>
+              <li><a href="#">Blog</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">Terms</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 footer-item last-item">
+            <h4>Contact Us</h4>
+            <div class="contact-form">
+              <form id="contact footer-contact" action="" method="post">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="name" type="text" class="form-control" id="name" placeholder="Full Name" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <fieldset>
+                      <input name="email" type="text" class="form-control" id="email" pattern="[^ @]*@[^ @]*" placeholder="E-Mail Address" required="">
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your Message" required=""></textarea>
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="filled-button">Send Message</button>
+                    </fieldset>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    
+    <div class="sub-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <p>
+                Copyright © 2020 Company Name
+                - Template by: <a href="https://www.phpjabbers.com/">PHPJabbers.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+     <!-- <script src="{% static 'assets/js/custom.js' %}"></script> -->
+   <!-- <script src="{% static 'assets/js/jquery.min.js' %}"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Additional Scripts -->
+    <script src="{% static 'assets/js/owl.js' %}"></script>
+    <script src="{% static 'assets/js/slick.js' %}"></script>
+    <script src="{% static 'assets/js/accordions.js' %}"></script>
+
+
+
+    <script language = "text/Javascript"> 
+      cleared[0] = cleared[1] = cleared[2] = 0; //set a cleared flag for each field
+      function clearField(t){                   //declaring the array outside of the
+      if(! cleared[t.id]){                      // function makes it static and global
+          cleared[t.id] = 1;  // you could use true and false, but that's more typing
+          t.value='';         // with more chance of typos
+          t.style.color='#fff';
+          }
+      }
+    </script>
+
+    
+    <script>
+      var url = "{% url 'update_cart_data' %}"
+      $(document).ready(function () {
+    console.log("helo");
+    $('.increment-btn').click(function (e) { 
+
+        e.preventDefault();
+        console.log("jithu")
+        var inc_value=$(this).closest('.product_data').find('.quantity-imput').val();
+        var price_value=$(this).closest('.product_data').find('.hid_price').val();
+        var value = parseInt(inc_value, 10);
+        value = isNaN(value)? 0: value;
+        console.log(value);
+        console.log("price",price_value)
+        if (value<10)
+        {
+            value ++;
+            total_price=value*price_value
+            $(this).closest('.product_data').find('.quantity-imput').val(value);
+            $(this).closest('.product_data').find('.total_price').val(total_price);
+        }
+    });
+    $(".decrement-btn").click(function (e) {
+      e.preventDefault();
+      var inc_value=$(this).closest('.product_data').find('.quantity-imput').val()
+      var total_price = $(this).closest('.product_data').find('.total_price').val();
+      var price = $(this).closest('.product_data').find('.hid_price').val();
+      console.log(inc_value)
+      var value = parseInt(inc_value, 10);
+      value = isNaN(value)? 0: value;
+      if(value>1){
+        
+        value--;
+        total_price-=price
+        $(this).closest('.product_data').find('.quantity-imput').val(value);
+        $(this).closest('.product_data').find('.total_price').val(total_price);
+
+      }
+      });
+     $('.changeQuantity').click(function(e){
+      e.preventDefault();
+      
+      var qty = $(this).closest('.product_data').find('.quantity-imput').val();
+      var total_price =  $(this).closest('.product_data').find('.total_price').val();
+      var cart = $(this).closest('.product_data').find('.cart').val();
+      console.log(cart)
+      var token = $('input[name=csrfmiddlewaretoken]').val()
+      fetch(url,{
+        method:'POST',
+        headers:{
+          'Content-type':'application/json',
+          'X-CSRFToken':token,
+        },
+        body: JSON.stringify({
+          cart_id:cart,
+          total:total_price,
+          quantity:qty,
+
+      })
+      })
+     }) 
+});
+   
+
+      $(document).ready(function () {
+        $('.increment-btn').click(function (e) { 
+          e.defaultPrevented();
+          var price=$(this).closest('.product_data').find('.product_amount').val();
+          t+=price
+          $(this).closest('.subtotal').find('.subtotal1').val(t);
+        })
+      });
+
+
+    </script>
+{% endblock  %}

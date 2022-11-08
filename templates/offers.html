@@ -1,0 +1,109 @@
+{% extends 'admin.html' %}
+
+{% load static %}
+
+{% block title %} adminhome {% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+  <div class=" container text-center h2 m-5 " style="color: #FF6384;"> OFFER MANAGEMENT</div>
+
+
+  
+  <div class="d-flex row align-content-center text-center justify-content-center m-5">
+
+    <div class="card mt-5 m-2 p-4" style="width: 18rem; background-color: rgb(16, 1, 1);">
+        <div class="card-body">
+          <h5 class="card-title m-3" style="color: #FF6384;">Coupon Management</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Find the Best Coupon </h6>
+          <p class="card-text">"Buy your favorite things at heavy Discounts using Shein US Coupons. Shop more, Save More !”</p>
+          <a class="btn btn-info px-5 " style="background-color:#104764; color: #FF6384; border: none" href="{% url 'coupon_page' %}">Offer Page</a> 
+        </div>
+      </div>
+
+      <div class="card mt-5 m-2 p-4" style="width: 18rem; background-color: rgb(16, 1, 1);">
+        <div class="card-body">
+          <h5 class="card-title m-3" style="color: #FF6384;">Category Offer</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Find the Best category</h6>
+          <p class="card-text m-2">Don't pay attention to those who offer too much. Because they fuck you </p>
+          <a class="btn btn-info px-5 " style="background-color:#104764; color: #FF6384; border: none" href="{% url 'category_offer_page' %}">Offer Page</a> 
+        </div>
+      </div>
+
+      <div class="card mt-5 m-2 p-4" style="width: 18rem; background-color: rgb(16, 1, 1);">
+        <div class="card-body">
+          <h5 class="card-title m-3" style="color: #FF6384;">Product Offer</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Find the Best Product</h6>
+          <p class="card-text m-3">When you're just like everybody else, you've nothing to offer other than your conformity.</p>
+          <a class="btn btn-info px-5 " style="background-color:#104764; color: #FF6384; border: none" href="{% url 'product_offer_page' %}">Offer Page</a> 
+
+        </div>
+      </div>
+
+  <!-- {% for i in data %}
+  <div class="card m-4 col-3" style="width: 18rem; background-color: rgb(16, 1, 1);">
+    <img class="card-has-bg-img" src="{{i.img.url}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title" style="color: #FF6384;">{{i.category_name}}</h5>
+      <h6 class="card-title" style="color: #FF6384;">{{i.category_id}}</h6>
+      <a href="update_category/{{i.id}}" class="btn btn-success">Update</a>
+      <a href="delete_category/{{i.id}}" class="btn btn-danger">Delete</a>
+    </div>
+  </div>
+  {% endfor %} -->
+</div>
+
+  <nav class="d-flex justify-content-center mt-4">
+    {% if data.has_other_pages %}
+    <ul class="pagination pagination-lg justify-content-center">
+      {% if data.has_previous %}
+      <li class="page-item ">
+        <a class="page-link" href="?page={{product.previous_page_number}}" aria-label="Previous">
+          Previous
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" aria-label="Previous">Previous </a>
+      </li>
+      {% endif %}
+  
+      {% for i in data.paginator.page_range %}
+        {% if data.number == i %}
+          <li class="page-item"><a class="page-link" href="#">{{i}}</a></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+        {% endif %}
+        {% endfor %}
+  
+  
+        {% if data.has_next %}
+        <li class="page-item ">
+          <a class="page-link" href="?page={{product.next_page_number}}" aria-label="Previous">
+            Next
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" href="#" aria-label="Previous"> Next </a>
+  
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+  </nav>
+  </div>
+
+
+
+
+
+
+  <style>
+    body{
+          background-color: #191C24;
+    }
+  </style>
+{% endblock %}

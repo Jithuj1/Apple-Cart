@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} otp page {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+
+
+
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div class="card bg-dark text-white" style="border-radius: 1rem;">
+                <div class="card-body text-center">
+                  <form action="", method="post">
+                    {% csrf_token %}
+                  <div class="md-2 mt-md-2 pb-5">
+                    <h2 class="fw-bold text-uppercase">Login Through OTP</h2>
+                    <p class="text-white-50 mb-3">
+                      <div class="text-white-50 mb-3"> 
+                        {% for m in messages %}
+                        <h5 class="text-danger">{{ m }}</h5>
+                        {% endfor %}
+                      </div>
+                    </p>
+                    <form action="", method="post">
+                    <div class="form-outline form-white mb-4">
+                      <input type="text" name="phone" class="form-control form-control-lg" placeholder='Enter your registered phone number' />
+                      <label class="form-label" for="typeEmailX"></label>
+                    </div>
+                          
+                    <input type="Submit" class="btn btn-info px-5"></input>
+                  </form>
+                  
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {% endblock %}

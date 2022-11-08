@@ -1,0 +1,171 @@
+{% extends 'admin.html' %} 
+{% load static %} 
+{% block title %} adminhome {%endblock %} 
+{% block content %}
+
+
+<div class="container mt-5">
+      <div class="container-fluid pt-4 px-4">
+            <div class="row g-4" >
+                <div class="col-sm-6 col-xl-3 my-5">
+                    <div class="rounded d-flex align-items-center justify-content-between p-4" style="background-color:#2D3E50">
+                        <i class="fa fa-chart-line fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <h5 class="mb-2 " style="color: #FF6384;">Total Sale</h5>
+                            <h6 class="mb-0 " style="color: #FF6384;">{{total}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3 my-5">
+                    <div class=" rounded d-flex align-items-center justify-content-between p-4" style="background-color:#2D3E50">
+                        <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <h5 class="mb-2  " style="color: #FF6384;">Today Sale</h5>
+                            <h6 class="mb-0 " style="color: #FF6384;">{{today}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3 my-5">
+                    <div class=" rounded d-flex align-items-center justify-content-between p-4" style="background-color:#2D3E50">
+                        <i class="fa fa-chart-area fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <h5 class="mb-2 " style="color: #FF6384;">Total Stock</h5>
+                            <h6 class="mb-0 " style="color: #FF6384;">{{stock}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-xl-3 my-5">
+                    <div class=" rounded d-flex align-items-center justify-content-between p-4" style="background-color:#2D3E50">
+                        <i class="fa fa-chart-pie fa-3x text-primary"></i>
+                        <div class="ms-3">
+                            <h5 class="mb-2 " style="color: #FF6384;">Total Order</h5>
+                            <h6 class="mb-0 " style="color: #FF6384;">{{count}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!-- charts -->
+
+
+        <div class="container-fluid pt-4 px-4">
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-6" >
+                    <div class=" text-center rounded p-4" style="background-color:#2D3E50">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0" style="color: #FF6384;">Worldwide Sales</h6>
+                            <a href="" style="color: #FF6384;">Show All</a>
+                        </div>
+                        <canvas id="myChart">
+
+                        </canvas>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-xl-6">
+                    <div class="text-center rounded p-4" style="background-color: #2D3E50;">
+                        <div class="d-flex align-items-center justify-content-between mb-4">
+                            <h6 class="mb-0" style="color: #FF6384;">Salse & Revenue</h6>
+                            <a href="" style="color: #FF6384;">Show All</a>
+                        </div>
+                        <canvas id="myCharts"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<style>
+      body{
+            background-color: #191C24;
+      }
+</style>
+
+
+
+
+<!-- scripts cdn -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!--  scripts data -->
+
+<script>
+    
+  
+    const data = {
+      labels: [{% for i in total_stock %}'{{i.Product_name}}',{% endfor %}],
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [{% for i in data_sales %}'{{i}}',{% endfor %}],
+      }]
+    };
+  
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {}
+    };
+  </script>
+
+<!--  -->
+
+<script>
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+  </script>
+
+
+<!-- second chart -->
+
+<!-- scripts cdn -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<!--  scripts data -->
+
+<script>
+    const label = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+    ];
+  
+    const datas = {
+      labels: label,
+      datasets: [{
+        label: 'My First dataset',
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgb(255, 99, 132)',
+        data: [0, 10, 5, 2, 20, 30, 45],
+      }]
+    };
+  
+    const configs = {
+      type: 'line',
+      data: datas,
+      options: {}
+    };
+  </script>
+
+<!--  -->
+
+<script>
+    const myCharts = new Chart(
+      document.getElementById('myCharts'),
+      configs
+    );
+  </script>
+
+{% endblock %}

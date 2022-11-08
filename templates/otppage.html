@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Harry Fitness</title>
+  </head>
+  <link
+    href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+
+  <body>
+    <form action="" method="post">
+      {% csrf_token %}
+    <div class="d-flex justify-content-center align-items-center container">
+      <div class="card py-5 px-3">
+        <h5 class="m-0">Mobile phone verification</h5>
+        <span class="mobile-text"
+          >Enter the code we just send on your mobile phone
+          <b class="text-danger">+91 {{value}}</b></span
+        >
+        <div class="d-flex flex-row mt-5">
+          <input type="text" name="value" class="form-control" autofocus="" />
+      
+        </div>
+        <div class="text-center mt-5">
+          <a class="d-block mobile-text">Don't receive the code?</a
+          ><a class="font-weight-bold text-danger cursor">Resend</a><br>
+          <input type="submit" class="btn btn-info px-5" value="Verify Phone Number" >
+
+        </div>
+      </div>
+    </div>
+  </form>
+  </body>
+</html>
