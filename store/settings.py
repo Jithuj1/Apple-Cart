@@ -140,3 +140,5 @@ MEDIA_URL ='/media/'
 
 AccountSid = config('AccountSid')
 AuthToken = config('AuthToken')
+
+CSRF_TRUSTED_ORIGINS=['https://applecart.tk']
