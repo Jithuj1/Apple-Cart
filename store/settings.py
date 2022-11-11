@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-9lu(@1kwgshyew)7uw3c%y1r0!=2a1r_844r1kxqn4hs2dailr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -83,8 +83,8 @@ AUTH_USER_MODEL='home.User_data'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Project6',
-        'USER': 'postgres',
+        'NAME': 'project6',
+        'USER': 'jithu',
         'PASSWORD': 'jithu@123',
         'HOST': 'localhost',
         'PORT': '5432'
@@ -138,7 +138,7 @@ MEDIA_ROOT = BASE_DIR/ 'uploads'
 MEDIA_URL ='/media/'
 
 
-AccountSid = 'ACaa24f1172b3d00884ea96f42d8018d67'
-AuthToken ='b058a243412ec5b0dd3914b0acb5c912'
+AccountSid = "ACaa24f1172b3d00884ea96f42d8018d67"
+AuthToken ="b058a243412ec5b0dd3914b0acb5c912"
 
 CSRF_TRUSTED_ORIGINS=['https://applecart.tk']
