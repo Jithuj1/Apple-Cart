@@ -138,7 +138,7 @@ MEDIA_ROOT = BASE_DIR/ 'uploads'
 MEDIA_URL ='/media/'
 
 
-AccountSid = config('AccountSid')
-AuthToken = config('AuthToken')
+AccountSid = 'ACaa24f1172b3d00884ea96f42d8018d67'
+AuthToken ='b058a243412ec5b0dd3914b0acb5c912'
 
 CSRF_TRUSTED_ORIGINS=['https://applecart.tk']
