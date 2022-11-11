@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
 
-    <title>{% block title %} {% endblock%}</title>
+    <title>{% block title %} Profile {% endblock%}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -65,6 +65,9 @@
             <li class="nav-item ">
               <a class="nav-link" href="{% url 'cart' %}">Cart</a>
             </li>
+            <li class="nav-item ">
+              <a class="nav-link" href="{% url 'contactro' %}">Contact Us</a>
+            </li>
             
             <li class="nav-item">
               {% if 'uname' in request.session %}
@@ -105,7 +108,7 @@
                         <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-dark mx-3 mt-5">Wish List</span> </a>
                 </li>
                   <li>
-                    <a href="{% url 'admin_logout' %}" class="nav-link px-0 align-middle mt-3">
+                    <a href="{% url 'logout' %}" class="nav-link px-0 align-middle mt-3">
                         <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline text-dark mx-3 mt-5">Log out</span> </a>
                 </li>
                 </ul>

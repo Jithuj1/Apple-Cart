@@ -43,21 +43,14 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'product' %}">Products</a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item ">
               <a class="nav-link" href="">Cart</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
-            
-              <div class="dropdown-menu">
-                  <a class="dropdown-item" href="about.html">About Us</a>
-                  <a class="dropdown-item" href="blog.html">Contact Us </a>
-                  <a class="dropdown-item" href="testimonials.html">Wish List</a>
-                  <a class="dropdown-item" href="terms.html">Sign Up</a>
-              </div>
+              <a class="nav-link" href="{% url 'profile' %}">Profile</a>
             </li>
             <li class="nav-item">
-              {% if 'username' in request.session %}
+              {% if 'uname' in request.session %}
               <a class="nav-link" href="{% url 'logout' %}">Log out</a>
               {% else %}
               <a class="nav-link" href="{% url 'login' %}">Log in</a>

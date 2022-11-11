@@ -7,16 +7,6 @@
 {% block content %}
 
 
-<!-- ***** Preloader Start ***** -->
-<div id="preloader">
-    <div class="jumper">
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</div>  
-<!-- ***** Preloader End ***** -->
-
 <!-- Header -->
 <div class="sub-header">
   <div class="container">
@@ -55,21 +45,14 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'product' %}">Products</a>
           </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="">Cart</a>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'cart' %}" href="">Cart</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
-          
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="about.html">About Us</a>
-                <a class="dropdown-item" href="blog.html">Contact Us </a>
-                <a class="dropdown-item" href="testimonials.html">Wish List</a>
-                <a class="dropdown-item" href="terms.html">Sign Up</a>
-            </div>
+               <a class="nav-link" href="{% url 'profile' %}">Profile</a>
           </li>
           <li class="nav-item">
-            {% if 'username' in request.session %}
+            {% if 'uname' in request.session %}
             <a class="nav-link" href="{% url 'logout' %}">Log out</a>
             {% else %}
             <a class="nav-link" href="{% url 'login' %}">Log in</a>
@@ -162,12 +145,7 @@
                     </div>
                     <div class="col-sm-6 col-xs-12">
                          <div class="form-group">
-                              <select name="user" class="form-control">
-                                   <option  value=""> Select Username</option>
-                                        {% for i in users_list %}
-                                        <option value="{{i.id}}">{{i.username}}</option>
-                                         {% endfor %}
-                              </select>
+                              <input name="country" type="text" class="form-control" placeholder="Country:">
                          </div>
                     </div>
                </div>

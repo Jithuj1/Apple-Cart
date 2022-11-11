@@ -162,7 +162,7 @@ def product(request):
             user=User_data.objects.get(username = value)
 
             search_data = request.POST.get('search')
-            products=product_data.objects.filter(Product_name__icontains=search_data)
+            products=product_data.objects.filter(Product_name__icontains=search_data).order_by('id')
             paginator=Paginator(products, 6)
             page = request.GET.get('page')
             paged_products = paginator.get_page(page)
@@ -173,7 +173,7 @@ def product(request):
             categories=category_details.objects.all()
             value = request.session.get('uname')
             user=User_data.objects.get(username = value)
-            products=product_data.objects.all()
+            products=product_data.objects.all().order_by('id')
             paginator=Paginator(products, 6)
             page = request.GET.get('page')
             paged_products = paginator.get_page(page)
@@ -239,7 +239,7 @@ def product(request):
             categories=category_details.objects.all()
 
             search_data = request.POST.get('search')
-            products=product_data.objects.filter(Product_name__icontains=search_data)
+            products=product_data.objects.filter(Product_name__icontains=search_data).order_by('id')
             paginator=Paginator(products, 6)
             page = request.GET.get('page')
             paged_products = paginator.get_page(page)
@@ -247,7 +247,7 @@ def product(request):
             
         else:
             categories=category_details.objects.all()
-            products=product_data.objects.all()
+            products=product_data.objects.all().order_by('id')
             paginator=Paginator(products, 6)
             page = request.GET.get('page')
             paged_products = paginator.get_page(page)
@@ -588,25 +588,55 @@ def update_cart_data(request):
 
 
 def product_searach(request):
-    if request.method=="POST":
-        categories=category_details.objects.all()
-        value = request.session.get('uname')
-        user=User_data.objects.get(username = value)
-        search_data = request.POST.get('category')
-        if search_data != "0":
-            products=product_data.objects.filter(category_id=search_data)
-            paginator=Paginator(products, 6)
-            page = request.GET.get('page')
-            paged_products = paginator.get_page(page)
-            product_count = products.count()
-        
-        context = {
-                'categories':categories,
-                'user' : user, 
-                'product_details' : paged_products,
-                'product_count' : product_count,
-            }
-        return render(request, 'products.html', context)
+    if 'uname' in request.session:
+        if request.method=="POST":
+            categories=category_details.objects.all()
+            value = request.session.get('uname')
+            user=User_data.objects.get(username = value)
+            search_data = request.POST.get('category')
+            if search_data != "0":
+                products=product_data.objects.filter(category_id=search_data)
+                paginator=Paginator(products, 6)
+                page = request.GET.get('page')
+                paged_products = paginator.get_page(page)
+                product_count = products.count()
+            else:
+                products=product_data.objects.all()
+                paginator=Paginator(products, 6)
+                page = request.GET.get('page')
+                paged_products = paginator.get_page(page)
+                product_count = products.count()
+            
+            context = {
+                    'categories':categories,
+                    'user' : user, 
+                    'product_details' : paged_products,
+                    'product_count' : product_count,
+                }
+            return render(request, 'products.html', context)
+    else:
+        if request.method=="POST":
+            categories=category_details.objects.all()
+            search_data = request.POST.get('category')
+            if search_data != "0":
+                products=product_data.objects.filter(category_id=search_data)
+                paginator=Paginator(products, 6)
+                page = request.GET.get('page')
+                paged_products = paginator.get_page(page)
+                product_count = products.count()
+            else:
+                products=product_data.objects.all()
+                paginator=Paginator(products, 6)
+                page = request.GET.get('page')
+                paged_products = paginator.get_page(page)
+                product_count = products.count()
+            
+            context = {
+                    'categories':categories,
+                    'product_details' : paged_products,
+                    'product_count' : product_count,
+                }
+            return render(request, 'products.html', context)
 
 
 def wishlist(request, id):

@@ -90,7 +90,7 @@
               {% csrf_token %}
                     <div class="form-select mb-3">
                       <select class="p-2 px-5" name="category" class="form-control" id="">
-                        <option  value="1"> Select Category</option>
+                        <option  value="0"> Select Category</option>
                         {% for i in categories %}
                         <option value="{{i.id}}" > <a href="">{{i.category_name}}</a></option>
                         {% endfor %}

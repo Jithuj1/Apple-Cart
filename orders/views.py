@@ -15,32 +15,36 @@ from django.utils import timezone
 # Create your views here.
 
 def add_new_address(request):
-    if request.method =='POST':
-        title=request.POST['title']
-        name=request.POST['name']
-        email=request.POST['email']
-        phone=request.POST['phone']
-        pin=request.POST['pin']
-        address=request.POST['address']
-        city=request.POST['city']
-        district=request.POST['district']
-        state=request.POST['state']
-        user=request.POST.get('user')
-        A=User_data.objects.get(id=user)
-        if name =='' or email =='' or phone =='' or pin =='' or address =='' or user =='' or city =='':
-            messages.info(request, 'blank space not allowed')
-            return redirect(add_new_address)
+    if 'uname' in request.session:
+        u = request.session.get('uname')
+        data = User_data.objects.get(username=u)
+        if request.method =='POST':
+            title=request.POST['title']
+            name=request.POST['name']
+            email=request.POST['email']
+            phone=request.POST['phone']
+            pin=request.POST['pin']
+            address=request.POST['address']
+            city=request.POST['city']
+            district=request.POST['district']
+            state=request.POST['state']
+            country=request.POST['country']
+            A=User_data.objects.get(id=data.id)
+            if name =='' or email =='' or phone =='' or pin =='' or address =='' or city =='':
+                messages.info(request, 'blank space not allowed')
+                return redirect(add_new_address)
+            else:
+                user = Address.objects.create(name = (title and name), user=A, country=country, phone = phone, email = email, state = state, pin =  pin, district=district, full_address=address, city=city)
+                user.save(); 
+                print('user created')
+                return redirect(checkout)
         else:
-            user = Address.objects.create(name = (title and name), user=A, phone = phone, email = email, state = state, pin =  pin, district=district, full_address=address, city=city)
-            user.save(); 
-            print('user created')
-            return redirect(checkout)
+            context={
+                'users_list' : data
+                }
+            return render(request, 'add_new_address.html', context )
     else:
-        a=User_data.objects.all()
-        context={
-            'users_list' : a
-            }
-        return render(request, 'add_new_address.html', context )
+        return redirect(login)
 
 
 def delete_address(request, id):

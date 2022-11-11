@@ -1,0 +1,1 @@
+CRISP_RUNTIME_CONFIG={locale:document.documentElement.lang};window.$crisp=[];window.CRISP_WEBSITE_ID="7226c116-8879-4a24-b5a9-396eb24c7488";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();

@@ -95,7 +95,7 @@ class product_data(models.Model):
     image3 = models.ImageField(upload_to = 'uploads', blank = True)
     image4 = models.ImageField(upload_to = 'uploads', blank = True) 
     category_id= models.ForeignKey('category_details', on_delete= models.CASCADE)
-    stoke_status = models.CharField(max_length=50)
+    stoke_status = models.CharField(max_length=50, default='100', null = True)
 
 
 class Cart(models.Model):
@@ -118,6 +118,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return self.product
+
 
 class category_details(models.Model):
     category_id = models.CharField(max_length=20)

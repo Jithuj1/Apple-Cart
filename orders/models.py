@@ -21,7 +21,6 @@ class Address(models.Model):
         return self.user.name
     
 
-
 class Payment(models.Model):
     user = models.ForeignKey(User_data, on_delete=models.CASCADE)
     payment_id = models.CharField( max_length=50)
