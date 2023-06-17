@@ -31,7 +31,7 @@
     <header class="">
       <nav class="navbar navbar-expand-lg" style="background-color: #bd986b;">
         <div class="container">
-          <a class="navbar-brand m-0" href="index.html"><h2 style="color: black;" >Apple Cart<em><h2 style="color: black;" class="text-center">welcome{% if 'uname' in request.session %}
+          <a class="navbar-brand m-0" href="{% url 'home' %}"><h2 style="color: black;" >Apple Cart<em><h2 style="color: black;" class="text-center">welcome{% if 'uname' in request.session %}
             {{ user.name  }}
             {% endif %} </h2></i></em></h2></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
