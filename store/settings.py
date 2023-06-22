@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9lu(@1kwgshyew)7uw3c%y1r0!=2a1r_844r1kxqn4hs2dailr'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,7 +82,7 @@ AUTH_USER_MODEL='home.User_data'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'project6',
+        'NAME': 'Project6',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
