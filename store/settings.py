@@ -82,7 +82,7 @@ AUTH_USER_MODEL='home.User_data'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Project6',
+        'NAME': 'project6',
         'USER': 'postgres',
         'PASSWORD': 'admin',
         'HOST': 'localhost',
